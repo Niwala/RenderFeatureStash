@@ -10,6 +10,7 @@ namespace SamsBackpack.RenderFeatureStash
     public class StashPingPongRenderFeature : ScriptableRendererFeature
     {
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
+        public CameraType cameraTypeMask = CameraType.Game | CameraType.SceneView | CameraType.Reflection | CameraType.VR;
         public Material fullScreenMaterial;
 
         public TextureInfo textureA;
@@ -39,7 +40,8 @@ namespace SamsBackpack.RenderFeatureStash
             pass.textureB = textureB;
             pass.inputs = inputs;
 
-            if (fullScreenMaterial == null || textureA == null || textureB == null || blitCount <= 0)
+            if (fullScreenMaterial == null || textureA == null || textureB == null || blitCount <= 0
+                 || !cameraTypeMask.HasFlag(renderingData.cameraData.cameraType))
                 return;
 
             renderer.EnqueuePass(pass);

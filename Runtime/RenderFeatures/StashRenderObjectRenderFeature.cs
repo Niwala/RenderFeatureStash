@@ -10,6 +10,7 @@ namespace SamsBackpack.RenderFeatureStash
     public class StashRenderObjectRenderFeature : ScriptableRendererFeature
     {
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
+        public CameraType cameraTypeMask = CameraType.Game | CameraType.SceneView | CameraType.Reflection | CameraType.VR;
 
         [Header("Target")]
         public TextureInfo target;
@@ -57,7 +58,7 @@ namespace SamsBackpack.RenderFeatureStash
             pass.overrideShaderPassIndex = shaderPassIndex;
 
 
-            if (target == null)
+            if (target == null || !cameraTypeMask.HasFlag(renderingData.cameraData.cameraType))
                 return;
 
             pass.name = name;

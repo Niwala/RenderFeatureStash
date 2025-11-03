@@ -10,6 +10,7 @@ namespace SamsBackpack.RenderFeatureStash
     public class StashFullScreenRenderFeature : ScriptableRendererFeature
     {
         public RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
+        public CameraType cameraTypeMask = CameraType.Game | CameraType.SceneView | CameraType.Reflection | CameraType.VR;
         public Material fullScreenMaterial;
 
         public List<StashInput> inputs = new List<StashInput>();
@@ -30,7 +31,7 @@ namespace SamsBackpack.RenderFeatureStash
             pass.target = target;
             pass.inputs = inputs;
 
-            if (fullScreenMaterial == null || target == null)
+            if (fullScreenMaterial == null || target == null || !cameraTypeMask.HasFlag(renderingData.cameraData.cameraType))
                 return;
 
             renderer.EnqueuePass(pass);
