@@ -1,6 +1,6 @@
 {
   "name": "com.samsbackpack.renderfeaturestash",
-  "version": "0.1",
+  "version": "0.1.0",
   "displayName": "RenderFeature Stash",
   "description": "Implements basic RenderFeatures with easy access to different buffers without requiring C# scripting.",
   "unity": "6000.2.1",
